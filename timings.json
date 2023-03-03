@@ -1,0 +1,14 @@
+{
+  "timings": [
+    {"frame": 30, "index": 0},
+    {"frame": 60, "index": 1},
+    {"frame": 90, "index": 2},
+    {"frame": 120, "index": 3},
+    {"frame": 150, "index": 2},
+    {"frame": 180, "index": 1},
+    {"frame": 210, "index": 0},
+    {"frame": 240, "index": 3},
+    {"frame": 270, "index": 2},
+    {"frame": 300, "index": 1}
+  ]
+}
