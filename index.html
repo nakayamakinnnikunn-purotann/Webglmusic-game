@@ -1,0 +1,61 @@
+<DOCTIPE html>
+<head>
+<script>
+var timings; // JSONから読み込んだタイミング配列
+
+var dropFrames = timings[0].frame;
+var dropCounter = 0;
+var dropIndex = -1;
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  // 立方体の回転
+  cubes.forEach(function(cube) {
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+  });
+
+  // 立方体の移動
+  cubes.forEach(function(cube, index) {
+    if (index == dropIndex) {
+      cube.position.y -= 0.2;
+      if (cube.position.y < -5) {
+        cube.position.y = 10;
+        dropIndex = -1;
+      }
+    } else {
+      cube.position.y -= 0.1;
+      if (cube.position.y < -5) {
+        cube.position.y = 10;
+      }
+    }
+  });
+
+  // 立方体の落下
+  if (dropIndex == -1 && dropCounter >= dropFrames) {
+    var timing = timings.shift();
+    dropIndex = timing.index;
+    dropFrames = timings[0].frame - timing.frame;
+    dropCounter = 0;
+  } else {
+    dropCounter++;
+  }
+
+  renderer.render(scene, camera);
+}
+
+// JSONファイルの読み込み
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'timings.json', true);
+xhr.responseType = 'json';
+xhr.onload = function() {
+  timings = xhr.response.timings;
+  animate();
+};
+xhr.send();
+
+</script>
+</head>
+<body>
+</body>
